@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/action_repair_service"
+          android:title="Ремонт"
+          app:showAsAction="always"
+          android:icon="@drawable/ic_repair_device"
+          android:orderInCategory="10"
+    />
+    <item android:id="@+id/action_contacts_view"
+          android:title="Контакты"
+          android:orderInCategory="20"
+          app:showAsAction="always"
+          android:icon="@android:drawable/ic_dialog_info"
+          />
+
+</menu>
