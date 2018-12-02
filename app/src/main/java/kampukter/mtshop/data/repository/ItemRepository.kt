@@ -11,10 +11,10 @@ object ItemRepository {
 
         private val apiService = APIinterface.create()
 
-        fun getItem(): MutableLiveData<List<Item>> {
+        fun getItem( categoryItem: Int ): MutableLiveData<List<Item>> {
 
             val data = MutableLiveData<List<Item>>()
-            val call = apiService.getItems()
+            val call = apiService.getItems(categoryItem)
 
             call.enqueue(object : Callback<List<Item>> {
                 override fun onResponse(call: Call<List<Item>>, response: retrofit2.Response<List<Item>>?) {

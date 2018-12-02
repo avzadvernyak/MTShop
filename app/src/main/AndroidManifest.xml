@@ -15,5 +15,15 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <activity android:name=".ui.ProductActivity"
+                  android:parentActivityName=".ui.MTShopActivity"
+                  android:label="ProductViewActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.MTShopActivity">
+            </meta-data>
+        </activity>
+
+
     </application>
 </manifest>
