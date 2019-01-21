@@ -2,5 +2,5 @@
     <string name="app_name">Мир Тонометров</string>
     <string name="currency">рос.руб.</string>
     <string name="titlePrice">Цена</string>
-    <string name="_12345678">12345678</string>
+    <string name="shopping_cart">В Корзину</string>
 </resources>

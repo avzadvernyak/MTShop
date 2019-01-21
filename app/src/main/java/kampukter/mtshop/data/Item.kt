@@ -1,23 +1,32 @@
 package kampukter.mtshop.data
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
-class Item {
+@Entity(tableName = "items_table")
+data class Item (
     @SerializedName("id")
-    var id: Long = 0
+    @PrimaryKey
+    var id: Long = 0L,
+
+    var categoryItem: Int,
 
     @SerializedName("shortname")
-    var shortname: String? = null
+    val shortname: String,
 
     @SerializedName("name")
-    var name: String? = null
+    val name: String,
 
     @SerializedName("price")
-    var price: Int = 0
+    val price: Int,
 
     @SerializedName("image")
-    var image: String? = null
+    val image: String? = null,
 
     @SerializedName("availability")
-    var availability: Int = 0
-}
+    val availability: Int,
+
+    @SerializedName("description")
+    val description: String? = null
+)

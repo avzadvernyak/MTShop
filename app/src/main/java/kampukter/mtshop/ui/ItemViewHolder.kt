@@ -16,10 +16,9 @@ class ItemViewHolder (itemView:View) : RecyclerView.ViewHolder(itemView)  {
             availabilityTextView.text = inStock[item.availability]
             GlideApp.with(this)
                 .load(item.image)
-                .placeholder(R.drawable.ic_city)
+                .placeholder(R.drawable.ic_plus)
                 .into(itemImageView)
             setOnClickListener { itemClickListener?.invoke(item) }
         }
     }
 }
-// enum class inStock ( var state: String){"В наличии", "Нет на складе"}

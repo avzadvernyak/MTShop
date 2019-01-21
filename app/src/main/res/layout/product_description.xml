@@ -1,19 +1,115 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<androidx.constraintlayout.widget.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.ProductActivity"
-        android:id="@+id/linearLayout"
-        android:visibility="visible">
+>
+    <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintStart_toStartOf="@+id/toolbarProduct"
+            android:layout_marginStart="8dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toTopOf="@+id/toolbarProduct"/>
+
+
+    <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbarProduct"
+            android:layout_width="match_parent"
+            android:background="?attr/colorPrimary"
+            android:layout_height="?attr/actionBarSize">
+    </androidx.appcompat.widget.Toolbar>
+
 
     <TextView
-            android:id="@+id/titleProductTextView"
-            android:layout_width="match_parent"
+            android:id="@+id/nameProductTextView"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/_12345678"
-            android:visibility="visible"
-    />
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:textSize="18sp"
+            android:textAlignment="center"
+            app:layout_constraintTop_toBottomOf="@+id/toolbarProduct"
+            android:textColor="@color/colorTextCard"/>
 
-</LinearLayout>
+
+    <ImageView
+            android:id="@+id/imageProduct"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/nameProductTextView"
+            android:layout_marginTop="16dp"
+            tools:ignore="ContentDescription"/>
+    <TextView
+            android:id="@+id/priceProductTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@+id/textView4"
+            android:layout_marginStart="8dp"
+            app:layout_constraintTop_toTopOf="@+id/textView4"
+            android:textColor="@color/colorTextCard"/>
+    <TextView
+            android:text="@string/titlePrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView4"
+            app:layout_constraintTop_toTopOf="@+id/imageProduct"
+            app:layout_constraintStart_toEndOf="@+id/imageProduct"
+            android:layout_marginStart="8dp"
+            android:textColor="@color/colorTextCard"/>
+    <TextView
+            android:text="@string/currency"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView5"
+            app:layout_constraintTop_toTopOf="@+id/priceProductTextView"
+            app:layout_constraintStart_toEndOf="@+id/priceProductTextView"
+            android:layout_marginStart="16dp"
+            android:textColor="@color/colorTextCard"/>
+    <ScrollView
+            android:layout_below="@id/imageProduct"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toBottomOf="@+id/imageProduct"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="48dp" android:id="@+id/scrollView2">
+
+        <LinearLayout android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:orientation="vertical">
+            <TextView
+                    android:id="@+id/descriptionProduct"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:autoLink="web"
+                    android:textColor="@color/colorTextCard"/>
+        </LinearLayout>
+    </ScrollView>
+    <Button
+            android:id="@+id/shopcart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/shopping_cart"
+            app:layout_constraintTop_toBottomOf="@+id/scrollView2"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+    />
+</androidx.constraintlayout.widget.ConstraintLayout>

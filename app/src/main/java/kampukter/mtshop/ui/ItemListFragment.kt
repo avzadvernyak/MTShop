@@ -1,8 +1,8 @@
 package kampukter.mtshop.ui
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +14,7 @@ import com.google.android.material.snackbar.Snackbar
 import kampukter.mtshop.R
 import kampukter.mtshop.viewmodel.ItemSearchViewModel
 import kotlinx.android.synthetic.main.item_list_fragment.*
+import kotlinx.android.synthetic.main.mtshop_list_activity.*
 
 
 private const val ARG_CITIES_SET = "ARG_CITIES_SET"
@@ -37,11 +38,12 @@ class ItemListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         //
         itemAdapter = ItemAdapter { item ->
-            val intent = Intent(activity, ProductActivity::class.java)
-            intent.putExtra(EXTRA_MESSAGE, item.id.toString())
-            startActivity(intent)
-
-            //startActivity(Intent(context, ProductActivity::class.java).apply { putExtra(EXTRA_MESSAGE, item.id) })
+            startActivity(Intent(context, ProductActivity::class.java).apply {
+                putExtra(
+                    EXTRA_MESSAGE,
+                    item.id.toString()
+                )
+            })
         }
         with(recyclerView) {
             layoutManager = LinearLayoutManager(context)
@@ -51,17 +53,11 @@ class ItemListFragment : Fragment() {
         arguments?.getInt(ARG_CITIES_SET)?.let { itemsSet ->
             viewModel.getCategory(itemsSet)
         }
+        progressBarFragment.visibility = View.VISIBLE
         viewModel.items.observe(this, Observer { items ->
             itemAdapter?.setItems(items)
+            progressBarFragment.visibility = View.GONE
         })
-
-        /*
-        arguments?.getInt(ARG_CITIES_SET)?.let { itemsSet ->
-            viewModel.getItem(itemsSet).observe(this, Observer { items ->
-                itemAdapter?.setItems(items)
-            })
-        }
-        */
     }
 
     companion object {

@@ -1,7 +1,6 @@
 package kampukter.exampleretrofit
 
 import kampukter.mtshop.data.Item
-import kampukter.mtshop.data.Product
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -13,7 +12,7 @@ interface APIinterface {
     fun getItems(@Query("q") categoryItems: Int): Call<List<Item>>
 
     @GET("mt.php?type=2")
-    fun getProductDescription(@Query("id") idProduct: Long): Call<Product>
+    fun getProductDescription(@Query("id") idProduct: Long): Call<Item>
 
     companion object Factory {
         val BASE_URL = "http://orbis.in.ua/api/"

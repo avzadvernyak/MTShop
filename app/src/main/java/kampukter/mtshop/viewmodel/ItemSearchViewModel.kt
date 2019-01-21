@@ -10,11 +10,19 @@ import kampukter.mtshop.data.repository.ItemRepository
 class ItemSearchViewModel : ViewModel() {
 
     private val categoryItems = MutableLiveData<Int>()
-    val items: LiveData<List<Item>> =
-        Transformations.switchMap(categoryItems) { category -> ItemRepository.getItem(category) }
+    private val idItem = MutableLiveData<Long>()
 
-    fun getCategory(category: Int){
-        categoryItems.postValue( category )
+    val item: LiveData<Item> =
+        Transformations.switchMap(idItem) { id -> ItemRepository().getProductDescription(id) }
+
+    val items: LiveData<List<Item>> =
+        Transformations.switchMap(categoryItems) { category -> ItemRepository().getItem(category) }
+
+    fun getCategory(category: Int) {
+        categoryItems.postValue(category)
+    }
+    fun getIdProduct(id: Long) {
+        idItem.postValue(id)
     }
 /*
     fun getItem(categoryItems: Int): LiveData<List<Item>> {
