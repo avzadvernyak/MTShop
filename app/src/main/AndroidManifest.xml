@@ -19,11 +19,17 @@
                   android:parentActivityName=".ui.MTShopActivity"
                   android:label="ProductViewActivity">
             <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.MTShopActivity">
+                    android:name="android.support.PARENT_ACTIVITY"
+                    android:value=".ui.MTShopActivity">
             </meta-data>
         </activity>
-
-
+        <activity android:name=".ui.CartItemsActivity"
+                  android:parentActivityName=".ui.MTShopActivity"
+                  android:label="CartItemsActivity">
+            <meta-data
+                    android:name="android.support.PARENT_ACTIVITY"
+                    android:value=".ui.MTShopActivity">
+            </meta-data>
+        </activity>
     </application>
 </manifest>

@@ -11,4 +11,6 @@ abstract class ItemsDatabase : RoomDatabase() {
     abstract fun itemDao(): ItemDao
 
     abstract fun cartItemsDao(): CartItemsDao
+
+    abstract fun cartDao(): CartDao
 }

@@ -1,5 +1,6 @@
 package kampukter.mtshop.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -38,7 +39,7 @@ class MTShopActivity : AppCompatActivity() {
         return when (item?.itemId) {
 
             R.id.action_cart_items -> {
-                Snackbar.make(toolbar, "Корзина", Snackbar.LENGTH_LONG).show()
+                startActivity(Intent(this,CartItemsActivity::class.java))
                 true
             }
 

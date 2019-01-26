@@ -9,9 +9,11 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import kampukter.mtshop.GlideApp
 import kampukter.mtshop.R
+import kampukter.mtshop.data.CartItems
 import kampukter.mtshop.ui.ItemListFragment.Companion.EXTRA_MESSAGE
 import kampukter.mtshop.viewmodel.ItemSearchViewModel
 import kotlinx.android.synthetic.main.product_description.*
+import java.util.concurrent.Executors
 
 
 class ProductActivity : AppCompatActivity() {
@@ -41,6 +43,16 @@ class ProductActivity : AppCompatActivity() {
         textView4.visibility = View.GONE
         toolbarProduct.visibility = View.GONE
 
+        viewModel.findItemInCart(idSelectedItem).observe(this, Observer {
+            if (it != 0) {
+                shopcart.visibility = View.INVISIBLE
+                textViewItemInCart.visibility = View.VISIBLE
+            } else{
+                shopcart.visibility = View.VISIBLE
+                textViewItemInCart.visibility = View.INVISIBLE
+            }
+        })
+
         viewModel.item.observe(this, Observer {
             if (it.id != 0L) {
                 nameProductTextView.text = it.name
@@ -56,16 +68,19 @@ class ProductActivity : AppCompatActivity() {
                 textView4.visibility = View.VISIBLE
                 toolbarProduct.visibility = View.VISIBLE
 
-                shopcart.setOnClickListener {_->
+                shopcart.setOnClickListener { _ ->
                     AlertDialog.Builder(this).setTitle("Добавить в корзину:")
                         .setMessage("Вами выбран ${it.shortname}\nпо цене ${it.price} рублей.\n Добавить в корзину?")
                         .setPositiveButton("Да") { _, _ ->
+                            val item: CartItems = (CartItems(id = it.id, cartItemsCount = 1))
+                            Executors.newSingleThreadExecutor().submit { db.cartItemsDao().insert(item) }
                             Toast.makeText(
                                 applicationContext, "Товар добавлен в корзину",
                                 Toast.LENGTH_SHORT
                             ).show()
+
                         }
-                        .setNegativeButton("Нет"){ dialog, which -> this.finish() }
+                        .setNegativeButton("Нет") { dialog, which -> this.finish() }
                         .create().show()
                 }
             } else {

@@ -1,5 +1,6 @@
 package kampukter.mtshop.data.repository
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Query
 import kampukter.mtshop.data.CartItems
@@ -9,4 +10,13 @@ interface CartItemsDao:BasicDao<CartItems> {
 
     @Query("select * from cart_Items")
     fun getAll(): List<CartItems>
+
+    @Query("select COUNT(*) from cart_Items")
+    fun getCount() : LiveData<Int>
+
+    @Query("select COUNT(*) from cart_Items where id == :searchId")
+    fun findId(searchId: Long) : Int
+
+    @Query("delete from cart_Items where id in (:listId) " )
+    fun delMarkList( listId: MutableList<Long> )
 }

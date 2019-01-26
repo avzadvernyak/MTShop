@@ -1,9 +1,12 @@
 package kampukter.mtshop.data.repository
 
+import androidx.lifecycle.LiveData
 import kampukter.exampleretrofit.APIinterface
 import kampukter.mtshop.data.Item
 import retrofit2.Callback
 import androidx.lifecycle.MutableLiveData
+import kampukter.mtshop.data.Cart
+import kampukter.mtshop.data.CartItems
 import kampukter.mtshop.ui.db
 import retrofit2.Call
 import java.util.concurrent.Executors
@@ -15,7 +18,7 @@ class ItemRepository {
 
     fun getItem(categoryItem: Int): MutableLiveData<List<Item>> {
 
-        val needSynchro = true
+        val needSynchro = false
         val data = MutableLiveData<List<Item>>()
         if (needSynchro) {
 
@@ -24,7 +27,7 @@ class ItemRepository {
                 override fun onResponse(call: Call<List<Item>>, response: retrofit2.Response<List<Item>>?) {
                     val list = response?.body()
                     if (list != null) {
-                        list.forEach{it.categoryItem = categoryItem}
+                        list.forEach { it.categoryItem = categoryItem }
                         Executors.newSingleThreadExecutor().submit {
                             db.itemDao().insertAll(list)
                         }
@@ -37,7 +40,7 @@ class ItemRepository {
                 }
             })
         } else {
-            Executors.newSingleThreadExecutor().submit { data.postValue(db.itemDao().search( categoryItem )) }
+            Executors.newSingleThreadExecutor().submit { data.postValue(db.itemDao().search(categoryItem)) }
         }
         return data
     }
@@ -56,5 +59,27 @@ class ItemRepository {
             }
         })
         return data
+    }
+
+    fun getCountsItemInCart(): LiveData<Int> {
+        //val data : LiveData<Int>
+        //Executors.newSingleThreadExecutor().submit {  data =  }
+        return db.cartItemsDao().getCount()
+    }
+
+    fun getAllFromCart(): LiveData<List<Cart>> {
+        //val data = MutableLiveData<List<Cart>>()
+        //Executors.newSingleThreadExecutor().submit { data.postValue(db.cartDao().getCart()) }
+        return db.cartDao().getCart()
+    }
+
+    fun findIdInCart(id: Long): MutableLiveData<Int> {
+        val data = MutableLiveData<Int>()
+        Executors.newSingleThreadExecutor().submit { data.postValue(db.cartItemsDao().findId(id)) }
+        return data
+    }
+
+    fun delItemsCart(listId: MutableList<Long>) {
+        db.cartItemsDao().delMarkList(listId)
     }
 }
