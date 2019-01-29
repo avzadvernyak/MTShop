@@ -13,7 +13,8 @@ class ItemSearchViewModel : ViewModel() {
 
     private val categoryItems = MutableLiveData<Int>()
     private val idItem = MutableLiveData<Long>()
-    private val markedItemsInCart = mutableListOf<Long>()
+    private val markedItemsInCart = mutableSetOf<Long>()
+    var markItemsCart: MutableLiveData<MutableSet<Long>> = MutableLiveData()
 
     val item: LiveData<Item> =
         Transformations.switchMap(idItem) { id -> ItemRepository().getProductDescription(id) }
@@ -38,25 +39,16 @@ class ItemSearchViewModel : ViewModel() {
     }
 
     fun addMarkedItem(itemId: Long) {
-
-        if (!markedItemsInCart.contains(itemId)) {
-            markedItemsInCart += listOf(itemId)
-        }
+        markedItemsInCart.add(itemId)
+        markItemsCart.postValue(markedItemsInCart)
     }
 
     fun delMarkedItem(itemId: Long) {
-
-        if (markedItemsInCart.contains(itemId)) {
-            markedItemsInCart += listOf(itemId)
-        }
-    }
-
-    fun checkMarkedItem(itemId: Long): Boolean {
-        return markedItemsInCart.contains(itemId)
+        markedItemsInCart.remove(itemId)
+        markItemsCart.postValue(markedItemsInCart)
     }
 
     fun addAllItemsMarked() {
-        //Transformations.map(allItemsFromCart,{items->items.forEach { it -> addMarkedItem(it.id)}})
         val items = allItemsFromCart.value
         if (!items.isNullOrEmpty()) {
             items.forEach { it -> addMarkedItem(it.id) }
@@ -66,11 +58,15 @@ class ItemSearchViewModel : ViewModel() {
 
     fun delAllItemsMarked() {
         markedItemsInCart.clear()
+        markItemsCart.postValue(markedItemsInCart)
     }
 
     fun delItemsFromCart() {
         ItemRepository().delItemsCart(markedItemsInCart)
     }
 
+    fun setCountItem(id: Long, count: Int) {
+        ItemRepository().updCountItem(id, count)
+    }
 
 }

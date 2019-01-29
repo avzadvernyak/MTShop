@@ -79,7 +79,10 @@ class ItemRepository {
         return data
     }
 
-    fun delItemsCart(listId: MutableList<Long>) {
+    fun delItemsCart(listId: MutableSet<Long>) {
         db.cartItemsDao().delMarkList(listId)
+    }
+    fun updCountItem( idItem:Long, countItem:Int){
+        db.cartItemsDao().updCountItem(idItem, countItem )
     }
 }

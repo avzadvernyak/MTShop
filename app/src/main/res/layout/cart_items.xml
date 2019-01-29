@@ -9,7 +9,8 @@
             android:id="@+id/toolbarCart"
             android:layout_width="match_parent"
             android:background="?attr/colorPrimary"
-            android:layout_height="?attr/actionBarSize">
+            android:layout_height="?attr/actionBarSize"
+            tools:ignore="MissingConstraints">
     </androidx.appcompat.widget.Toolbar>
     <TextView
             android:id="@+id/textViewCountItems"
@@ -32,15 +33,25 @@
             android:id="@+id/checkBoxDelAll" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
             android:buttonTint="@color/colorTextCard"
             app:layout_constraintTop_toBottomOf="@+id/toolbarCart"/>
+<!--
     <fragment
             android:name="kampukter.mtshop.ui.CartViewFragment"
             android:id="@+id/cartRecyclerFragment"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            tools:layout="@layout/cart_recycler_fragment" app:layout_constraintTop_toBottomOf="@+id/textViewCountItems"
+            tools:layout="@layout/cart_recycler_fragment"
+            app:layout_constraintTop_toBottomOf="@+id/textViewCountItems"
             android:layout_marginTop="8dp">
     </fragment>
-
+-->
+    <FrameLayout
+            android:id="@+id/cartRecyclerFragment"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            app:layout_constraintTop_toBottomOf="@+id/textViewCountItems"
+           >
+    </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

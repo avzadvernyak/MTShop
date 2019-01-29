@@ -9,19 +9,31 @@ import kotlinx.android.synthetic.main.cart_item.view.*
 class CartViewHolder(cartView: View) : RecyclerView.ViewHolder(cartView) {
 
 
-    fun bind(item: Cart, itemClickListener: ItemClickListener<Cart>?) {
+    fun bind(
+        item: Cart,
+        itemClickListener: ItemClickListener<Cart>?,
+        itemSelectionListener: ItemSelectionListener?,
+        itemCountListener: ItemCountListener?,
+        markedItem: Set<Long>
+    ) {
+        val inStock = arrayOf("","В наличии", "Нет на складе")
         with(itemView) {
+            availability.text = inStock[item.availability]
             idTextView.text = item.name
             countTextView.text = item.count.toString()
-//            checkBoxDel.isChecked = viewModel.checkMarkedItem(item.id)
+            checkBoxDel.isChecked = markedItem.contains(item.id)
 
             setOnClickListener { itemClickListener?.invoke(item) }
-
-            checkBoxDel.setOnClickListener {
-                Log.d("blablabla", "-----------------  "+item.id.toString()+"  -----------------")
-                Log.d("blablabla", "-----------------  "+checkBoxDel.isChecked+"  -----------------")
+            checkBoxDel.setOnCheckedChangeListener { _, isChecked ->
+                itemSelectionListener?.invoke(item.id, isChecked)
             }
-
+            button_dec.setOnClickListener {
+                if (item.count>1) itemCountListener?.invoke(item.id, item.count-1) else checkBoxDel.isChecked=true
+            }
+            button_inc.setOnClickListener {
+                checkBoxDel.isChecked=false
+                itemCountListener?.invoke(item.id, item.count+1)
+            }
         }
     }
 

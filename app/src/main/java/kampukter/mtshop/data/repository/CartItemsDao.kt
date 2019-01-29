@@ -18,5 +18,8 @@ interface CartItemsDao:BasicDao<CartItems> {
     fun findId(searchId: Long) : Int
 
     @Query("delete from cart_Items where id in (:listId) " )
-    fun delMarkList( listId: MutableList<Long> )
+    fun delMarkList( listId: MutableSet<Long> )
+
+    @Query("update cart_Items set cartItemsCount = :valCount where id == :idItem")
+    fun updCountItem( idItem: Long , valCount:Int)
 }

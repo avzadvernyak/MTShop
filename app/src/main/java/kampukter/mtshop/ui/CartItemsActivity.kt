@@ -6,6 +6,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import kampukter.mtshop.R
@@ -30,15 +31,29 @@ class CartItemsActivity : AppCompatActivity() {
         supportActionBar?.title = "Корзина"
 
         viewModel.countItemsInCart.observe(this, Observer {
-            textViewCountItems.text = it.toString()
+            //Log.d("blablabla", "------- "+it.toString()+" ------")
+            textViewCountItems?.text = it.toString()
         })
-        checkBoxDelAll.setOnClickListener {
-            if (checkBoxDelAll.isChecked) {
-                viewModel.addAllItemsMarked()
-            } else {
-                viewModel.delAllItemsMarked()
+
+        viewModel.allItemsFromCart.observe(this, Observer {
+            if (it.isNotEmpty()) {
+                checkBoxDelAll.setOnClickListener {
+                    if (checkBoxDelAll.isChecked) viewModel.addAllItemsMarked() else viewModel.delAllItemsMarked()
+                }
             }
-        }
+        })
+
+        viewModel.markItemsCart.observe(this, Observer {
+            if (viewModel.allItemsFromCart.value?.count() != it.count())
+                checkBoxDelAll.isChecked = false
+        })
+
+        val fragment = CartViewFragment()
+        val manager = supportFragmentManager
+        val transaction = manager.beginTransaction()
+        transaction.add(R.id.cartRecyclerFragment, fragment)
+        transaction.commit()
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -50,7 +65,8 @@ class CartItemsActivity : AppCompatActivity() {
         return when (item?.itemId) {
 
             R.id.del_items_cart -> {
-                Executors.newSingleThreadExecutor().submit {viewModel.delItemsFromCart()}
+                Executors.newSingleThreadExecutor().submit { viewModel.delItemsFromCart() }
+                checkBoxDelAll.isChecked = false
                 Log.d("blablabla", "------- Очистка помеченых элементов из Корзины ------")
                 true
             }

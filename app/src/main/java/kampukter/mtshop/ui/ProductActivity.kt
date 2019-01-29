@@ -2,7 +2,6 @@ package kampukter.mtshop.ui
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -74,20 +73,17 @@ class ProductActivity : AppCompatActivity() {
                         .setPositiveButton("Да") { _, _ ->
                             val item: CartItems = (CartItems(id = it.id, cartItemsCount = 1))
                             Executors.newSingleThreadExecutor().submit { db.cartItemsDao().insert(item) }
-                            Toast.makeText(
-                                applicationContext, "Товар добавлен в корзину",
-                                Toast.LENGTH_SHORT
-                            ).show()
-
+                            shopcart.visibility = View.INVISIBLE
+                            textViewItemInCart.visibility = View.VISIBLE
                         }
-                        .setNegativeButton("Нет") { dialog, which -> this.finish() }
+                        .setNegativeButton("Нет") { _, which -> this.finish() }
                         .create().show()
                 }
             } else {
 
                 progressBar.visibility = View.GONE
                 AlertDialog.Builder(this).setTitle("Проблема").setMessage("Что-то пошло не так!")
-                    .setPositiveButton("YES") { dialog, which -> finish() }.create().show()
+                    .setPositiveButton("YES") { _, _ -> finish() }.create().show()
             }
         })
         viewModel.getIdProduct(idSelectedItem)
