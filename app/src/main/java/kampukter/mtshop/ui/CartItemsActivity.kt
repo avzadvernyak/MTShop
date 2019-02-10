@@ -23,6 +23,11 @@ class CartItemsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        if (savedInstanceState == null) supportFragmentManager.beginTransaction().add(
+            R.id.cartRecyclerFragment,
+            CartViewFragment()
+        ).commit()
+
         setContentView(R.layout.cart_items)
 
         setSupportActionBar(toolbarCart)
@@ -48,11 +53,6 @@ class CartItemsActivity : AppCompatActivity() {
                 checkBoxDelAll.isChecked = false
         })
 
-        val fragment = CartViewFragment()
-        val manager = supportFragmentManager
-        val transaction = manager.beginTransaction()
-        transaction.add(R.id.cartRecyclerFragment, fragment)
-        transaction.commit()
 
     }
 

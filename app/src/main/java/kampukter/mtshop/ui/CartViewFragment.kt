@@ -12,19 +12,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kampukter.mtshop.R
 import kampukter.mtshop.viewmodel.ItemSearchViewModel
-import kotlinx.android.synthetic.main.cart_items.*
 import kotlinx.android.synthetic.main.cart_recycler_fragment.*
 import java.util.concurrent.Executors
 
 class CartViewFragment : Fragment() {
 
     private var cartItemsAdapter: CartItemsAdapter? = null
-
-    /*
-    private val viewModel by lazy {
-        ViewModelProviders.of(this).get(ItemSearchViewModel::class.java)
-    }
-*/
     private lateinit var viewModel: ItemSearchViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,7 +48,7 @@ class CartViewFragment : Fragment() {
             Executors.newSingleThreadExecutor().submit { viewModel.setCountItem(id, count) }
         }
 
-        with(recyclerView) {
+        with(recyclerViewCard) {
             layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
             adapter = cartItemsAdapter
         }

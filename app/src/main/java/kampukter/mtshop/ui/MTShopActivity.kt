@@ -45,6 +45,7 @@ class MTShopActivity : AppCompatActivity() {
 
             R.id.action_repair_service -> {
                 Snackbar.make(toolbar, "Repair Service", Snackbar.LENGTH_LONG).show()
+                startActivity(Intent(this,BarCodeReadActivity::class.java))
                 true
             }
             R.id.action_contacts_view -> {

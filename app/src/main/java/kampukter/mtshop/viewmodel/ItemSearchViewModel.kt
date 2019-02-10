@@ -14,7 +14,8 @@ class ItemSearchViewModel : ViewModel() {
     private val categoryItems = MutableLiveData<Int>()
     private val idItem = MutableLiveData<Long>()
     private val markedItemsInCart = mutableSetOf<Long>()
-    var markItemsCart: MutableLiveData<MutableSet<Long>> = MutableLiveData()
+    //var markItemsCart: MutableLiveData<MutableSet<Long>> = MutableLiveData()
+    var markItemsCart = MutableLiveData<MutableSet<Long>>()
 
     val item: LiveData<Item> =
         Transformations.switchMap(idItem) { id -> ItemRepository().getProductDescription(id) }

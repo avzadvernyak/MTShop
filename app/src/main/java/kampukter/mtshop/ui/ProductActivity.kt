@@ -40,6 +40,9 @@ class ProductActivity : AppCompatActivity() {
         progressBar.visibility = View.VISIBLE
         textView5.visibility = View.GONE
         textView4.visibility = View.GONE
+
+        //textView4.
+
         toolbarProduct.visibility = View.GONE
 
         viewModel.findItemInCart(idSelectedItem).observe(this, Observer {

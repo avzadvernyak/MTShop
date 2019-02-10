@@ -2,6 +2,9 @@
           package="kampukter.mtshop">
 
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.FLASHLIGHT"/>
 
     <application android:allowBackup="true"
                  android:label="@string/app_name"
@@ -26,6 +29,14 @@
         <activity android:name=".ui.CartItemsActivity"
                   android:parentActivityName=".ui.MTShopActivity"
                   android:label="CartItemsActivity">
+            <meta-data
+                    android:name="android.support.PARENT_ACTIVITY"
+                    android:value=".ui.MTShopActivity">
+            </meta-data>
+        </activity>
+        <activity android:name=".ui.BarCodeReadActivity"
+                  android:parentActivityName=".ui.MTShopActivity"
+                  android:label="BarCodeReadActivity">
             <meta-data
                     android:name="android.support.PARENT_ACTIVITY"
                     android:value=".ui.MTShopActivity">

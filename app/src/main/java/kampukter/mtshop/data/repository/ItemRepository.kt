@@ -18,7 +18,7 @@ class ItemRepository {
 
     fun getItem(categoryItem: Int): MutableLiveData<List<Item>> {
 
-        val needSynchro = false
+        val needSynchro = true
         val data = MutableLiveData<List<Item>>()
         if (needSynchro) {
 
